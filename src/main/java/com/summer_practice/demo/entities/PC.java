@@ -3,15 +3,13 @@ package com.summer_practice.demo.entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Entity
-@Table(name="monitor")
-public class Monitor {
+public class PC {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-private  Long id;
-   @Column(name = "created_at")
-private Timestamp created_at;
+    private  Long id;
+    @Column(name = "created_at")
+    private Timestamp created_at;
     @Column(name = "created_by")
     private String created_by;
     @Column(name = "updated_at")
@@ -24,14 +22,12 @@ private Timestamp created_at;
     private  int height;
     @Column(name = "width")
     private  int width;
-    @Column(name = "vesa")
-    private  String  vesa;
-    @Column(name = "display_size")
-    private  String display_size;
+    private  int hddSize;
+    private int cpuCount;
+
     @ManyToOne
     @JoinColumn(name="w_place_id", nullable=false)
     private WorkPlace w_place;
-
 
     public Long getId() {
         return id;
@@ -97,20 +93,20 @@ private Timestamp created_at;
         this.width = width;
     }
 
-    public String getVesa() {
-        return vesa;
+    public int getHddSize() {
+        return hddSize;
     }
 
-    public void setVesa(String vesa) {
-        this.vesa = vesa;
+    public void setHddSize(int hddSize) {
+        this.hddSize = hddSize;
     }
 
-    public String getDisplay_size() {
-        return display_size;
+    public int getCpuCount() {
+        return cpuCount;
     }
 
-    public void setDisplay_size(String display_size) {
-        this.display_size = display_size;
+    public void setCpuCount(int cpuCount) {
+        this.cpuCount = cpuCount;
     }
 
     public WorkPlace getW_place() {
