@@ -15,6 +15,13 @@
     <description>Simple Rest application</description>
     <properties>
         <java.version>11</java.version>
+            <flyway.user>postgres</flyway.user>
+         <flyway.password>qwe123rty456</flyway.password>
+        <flyway.version>4.2.0</flyway.version>
+            <flyway.schemas>public</flyway.schemas>
+        <flyway.url>jdbc:postgresql://localhost/System_for_work</flyway.url>
+        <flyway.locations>filesystem:D:/summer_practice/src/main/resources/db/migration</flyway.locations>
+
     </properties>
     <dependencies>
         <dependency>
@@ -32,6 +39,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+            <version>4.2.0</version>
         </dependency>
 
         <dependency>
@@ -57,7 +65,16 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+
+            <plugin>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-maven-plugin</artifactId>
+            <version>4.0.3</version>
+            </plugin>
         </plugins>
     </build>
+
+
 
 </project>
