@@ -1,104 +1,100 @@
 package com.summer_practice.demo.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
-@Table(name="working_place")
+@Table(name = "working_place")
 public class WorkPlace {
-
-   private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "wp_id")
+    private Long wplaceId;
     @Column(name = "created_at")
-    private Timestamp created_at;
+    private Timestamp createdAt;
     @Column(name = "created_by")
-    private String created_by;
+    private String createdBy;
 
     @Column(name = "updated_at")
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
     @Column(name = "updated_by")
-    private String updated_by;
+    private String updatedBy;
     @Column(name = "name")
-   private String name;
+    private String name;
     @Column(name = "city")
     private String city;
- @OneToMany(mappedBy="monitor")
- private Set<Monitor> monitors;
- @OneToMany(mappedBy="pc")
- private Set<PC> pcs;
 
- public int getId() {
-  return id;
- }
+    @OneToMany(mappedBy = "wPlace", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Monitor> monitors;
+    @OneToMany(mappedBy = "wPlacePc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<PC> pcs;
 
- public void setId(int id) {
-  this.id = id;
- }
+    public Long getId() {
+        return wplaceId;
+    }
 
- public Timestamp getCreated_at() {
-  return created_at;
- }
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
 
- public void setCreated_at(Timestamp created_at) {
-  this.created_at = created_at;
- }
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
 
- public String getCreated_by() {
-  return created_by;
- }
+    public String getCreatedBy() {
+        return createdBy;
+    }
 
- public void setCreated_by(String created_by) {
-  this.created_by = created_by;
- }
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
- public Timestamp getUpdated_at() {
-  return updated_at;
- }
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
 
- public void setUpdated_at(Timestamp updated_at) {
-  this.updated_at = updated_at;
- }
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
- public String getUpdated_by() {
-  return updated_by;
- }
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
 
- public void setUpdated_by(String updated_by) {
-  this.updated_by = updated_by;
- }
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
- public String getName() {
-  return name;
- }
+    public String getName() {
+        return name;
+    }
 
- public void setName(String name) {
-  this.name = name;
- }
+    public void setName(String name) {
+        this.name = name;
+    }
 
- public String getCity() {
-  return city;
- }
+    public String getCity() {
+        return city;
+    }
 
- public void setCity(String city) {
-  this.city = city;
- }
+    public void setCity(String city) {
+        this.city = city;
+    }
 
- public Set<Monitor> getMonitors() {
-  return monitors;
- }
+    public Set<Monitor> getMonitors() {
+        return monitors;
+    }
 
- public void setMonitors(Set<Monitor> monitors) {
-  this.monitors = monitors;
- }
+    public void setMonitors(Set<Monitor> monitors) {
+        this.monitors = monitors;
+    }
 
- public Set<PC> getPcs() {
-  return pcs;
- }
+    public Set<PC> getPcs() {
+        return pcs;
+    }
 
- public void setPcs(Set<PC> pcs) {
-  this.pcs = pcs;
- }
+    public void setPcs(Set<PC> pcs) {
+        this.pcs = pcs;
+    }
 }

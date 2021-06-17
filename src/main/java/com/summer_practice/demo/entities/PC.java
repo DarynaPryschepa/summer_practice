@@ -3,70 +3,70 @@ package com.summer_practice.demo.entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "pc")
 public class PC {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private  Long id;
+    @Column(name = "pc_id")
+    private Long pcId;
     @Column(name = "created_at")
-    private Timestamp created_at;
+    private Timestamp createdAt;
     @Column(name = "created_by")
-    private String created_by;
+    private String createdBy;
     @Column(name = "updated_at")
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
     @Column(name = "updated_by")
-    private String updated_by;
+    private String updatedBy;
     @Column(name = "length")
-    private  int length;
+    private int length;
     @Column(name = "height")
-    private  int height;
+    private int height;
     @Column(name = "width")
-    private  int width;
-    private  int hddSize;
+    private int width;
+    @Column(name = "hddsize")
+    private int hddSize;
+    @Column(name = "cpucount")
     private int cpuCount;
 
-    @ManyToOne
-    @JoinColumn(name="w_place_id", nullable=false)
-    private WorkPlace w_place;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "w_place_id", nullable = false)
+    private WorkPlace wPlacePc;
 
-    public Long getId() {
-        return id;
+    public Long getPcId() {
+        return pcId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public Timestamp getCreated_at() {
-        return created_at;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public String getCreated_by() {
-        return created_by;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
-    public void setCreated_by(String created_by) {
-        this.created_by = created_by;
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 
-    public Timestamp getUpdated_at() {
-        return updated_at;
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public void setUpdated_at(Timestamp updated_at) {
-        this.updated_at = updated_at;
+    public String getUpdatedBy() {
+        return updatedBy;
     }
 
-    public String getUpdated_by() {
-        return updated_by;
-    }
-
-    public void setUpdated_by(String updated_by) {
-        this.updated_by = updated_by;
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public int getLength() {
@@ -109,11 +109,11 @@ public class PC {
         this.cpuCount = cpuCount;
     }
 
-    public WorkPlace getW_place() {
-        return w_place;
+    public WorkPlace getWplace() {
+        return wPlacePc;
     }
 
-    public void setW_place(WorkPlace w_place) {
-        this.w_place = w_place;
+    public void setWplace(WorkPlace w_place) {
+        this.wPlacePc = w_place;
     }
 }
