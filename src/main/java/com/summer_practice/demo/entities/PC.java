@@ -4,14 +4,12 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-
-@Table(name = "monitor")
-public class Monitor {
-
+@Table(name = "pc")
+public class PC {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "mon_id")
-    private Long monId;
+    @Column(name = "pc_id")
+    private Long pcId;
     @Column(name = "created_at")
     private Timestamp createdAt;
     @Column(name = "created_by")
@@ -26,17 +24,17 @@ public class Monitor {
     private int height;
     @Column(name = "width")
     private int width;
-    @Column(name = "vesa")
-    private String vesa;
-    @Column(name = "display_size")
-    private String displaySize;
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = WorkPlace.class)
+    @Column(name = "hddsize")
+    private int hddSize;
+    @Column(name = "cpucount")
+    private int cpuCount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "w_place_id", nullable = false)
-    private WorkPlace wPlace;
+    private WorkPlace wPlacePc;
 
-
-    public Long getMonId() {
-        return monId;
+    public Long getPcId() {
+        return pcId;
     }
 
     public Timestamp getCreatedAt() {
@@ -95,27 +93,27 @@ public class Monitor {
         this.width = width;
     }
 
-    public String getVesa() {
-        return vesa;
+    public int getHddSize() {
+        return hddSize;
     }
 
-    public void setVesa(String vesa) {
-        this.vesa = vesa;
+    public void setHddSize(int hddSize) {
+        this.hddSize = hddSize;
     }
 
-    public String getDisplay_size() {
-        return displaySize;
+    public int getCpuCount() {
+        return cpuCount;
     }
 
-    public void setDisplay_size(String display_size) {
-        this.displaySize = display_size;
+    public void setCpuCount(int cpuCount) {
+        this.cpuCount = cpuCount;
     }
 
-    public WorkPlace getwPlace() {
-        return wPlace;
+    public WorkPlace getWplace() {
+        return wPlacePc;
     }
 
-    public void setwPlace(WorkPlace wPlace) {
-        this.wPlace = wPlace;
+    public void setWplace(WorkPlace w_place) {
+        this.wPlacePc = w_place;
     }
 }
