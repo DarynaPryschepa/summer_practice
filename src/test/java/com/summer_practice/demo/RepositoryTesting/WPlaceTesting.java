@@ -16,9 +16,9 @@ import static junit.framework.TestCase.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class WPlaceTesting {
+
     @Autowired
     private WorkPlaceRepository wplaceRepository;
-
     @Test
     @ExpectedDataSet(value = {"datasets/workplaceExpectedForAdding.yml"}, ignoreCols = {"wp_id"})
     public void addWorkingPlaceTesting() {
@@ -59,6 +59,4 @@ public class WPlaceTesting {
         workPlace.setUpdatedBy("admin");
         wplaceRepository.save(workPlace);
     }
-
-
 }

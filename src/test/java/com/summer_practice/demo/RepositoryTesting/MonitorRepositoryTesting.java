@@ -14,13 +14,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Timestamp;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertTrue;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @DBRider
 public class MonitorRepositoryTesting {
+
     @Autowired
     private MonitorRepository monitorRepository;
     @Autowired
@@ -39,13 +40,12 @@ public class MonitorRepositoryTesting {
         monitorTest.setHeight(466);
         monitorTest.setWidth(622);
         monitorTest.setVesa("75x75mm");
-        monitorTest.setDisplay_size("27" + "''");
+        monitorTest.setDisplaySize("27" + "''");
         assertTrue(wplaceRepository.findById(1L).isPresent());
         WorkPlace w = wplaceRepository.findById(1L).get();
         monitorTest.setwPlace(w);
         monitorRepository.save(monitorTest);
     }
-
 
     @Test
     @ExpectedDataSet(value = {"datasets/monitorExpectedForUpdate.yml"})
@@ -65,13 +65,13 @@ public class MonitorRepositoryTesting {
     @Test
     @ExpectedDataSet(value = {"datasets/monitorDefaultPattern.yml"})
     public void findHeightTesting() {
-     monitorRepository.findByHeightBetween(700, 800);
+        monitorRepository.findByHeightBetween(700, 800);
     }
 
     @Test
     @ExpectedDataSet(value = {"datasets/monitorDefaultPattern.yml"})
     public void findVesaTesting() {
-         monitorRepository.findByVesaContains("800");
+        monitorRepository.findByVesaContains("800");
     }
 
 }

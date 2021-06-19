@@ -24,7 +24,6 @@ public class PCRepositoryTesting {
     private PCRepository pcRepository;
     @Autowired
     private WorkPlaceRepository wplaceRepository;
-
     @Test
     @ExpectedDataSet(value = {"datasets/pcExpectedForAdding.yml"}, ignoreCols = {"pc_id"})
 
@@ -46,7 +45,6 @@ public class PCRepositoryTesting {
         pcTest.setWplace(w);
         pcRepository.save(pcTest);
     }
-
 
     @Test
     @ExpectedDataSet(value = {"datasets/pcExpectedForDefault.yml"})
