@@ -1,5 +1,7 @@
 package com.summer_practice.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
@@ -23,14 +25,21 @@ public class WorkPlace {
     private String name;
     @Column(name = "city")
     private String city;
-    @OneToMany(mappedBy = "wPlace", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Monitor> monitors;
-    @OneToMany(mappedBy = "wPlacePc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 
+    @OneToMany(mappedBy = "wPlace", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Monitor> monitors;
+
+    @OneToMany(mappedBy = "wPlacePc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<PC> pcs;
 
     public Long getId() {
         return wplaceId;
+    }
+
+    public void setId(Long id) {
+        this.wplaceId = id;
     }
 
     public Timestamp getCreatedAt() {

@@ -1,5 +1,7 @@
 package com.summer_practice.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -31,9 +33,12 @@ public class PC {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "w_place_id", nullable = false)
+    @JsonIgnore
     private WorkPlace wPlacePc;
 
-    public Long getPcId() { return pcId; }
+    public Long getPcId() {
+        return pcId;
+    }
 
     public Timestamp getCreatedAt() {
         return createdAt;
