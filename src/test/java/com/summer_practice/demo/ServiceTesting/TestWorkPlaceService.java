@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
 
@@ -36,7 +37,7 @@ public class TestWorkPlaceService {
         workPlace.setName("Working_Place_321");
         workPlace.setCity("Chernihiv");
 
-        workPlaceService.addWorkPlace("Nikita", "Nikita", "Working_Place_321", "Chernihiv");
+        workPlaceService.addWorkPlace(workPlace);
         verify(workPlaceRepository, times(1)).save(any(WorkPlace.class));
     }
 
@@ -52,7 +53,8 @@ public class TestWorkPlaceService {
         workPLace.setCity("Chernihiv");
 
         given(workPlaceRepository.findById(1L)).willReturn(Optional.of(workPLace));
-        workPlaceService.updateWorkPlace(1L, "Daryna", "Daryna", "Working_Place_211", "Kyiv");
+        WorkPlace expectedPLace=workPlaceService.findWorkingPlaceById(1L);
+        workPlaceService.updateWorkPlace(expectedPLace);
         verify(workPlaceRepository, times(1)).save(workPLace);
     }
 

@@ -25,8 +25,7 @@ import static org.mockito.Mockito.verify;
 public class TestMonitorService {
     @InjectMocks
     MonitorService monitorService;
-    @Mock
-    WorkPlaceRepository workPlaceRepository;
+
     @Mock
     MonitorRepository monitorRepository;
 
@@ -41,8 +40,6 @@ public class TestMonitorService {
         workPLace.setName("Working_Place_211");
         workPLace.setCity("Chernihiv");
 
-        given(workPlaceRepository.findById(1L)).willReturn(Optional.of(workPLace));
-
         Monitor monitorTest = new Monitor();
         monitorTest.setCreatedBy("Asus");
         monitorTest.setUpdatedBy("Ihor");
@@ -53,8 +50,7 @@ public class TestMonitorService {
         monitorTest.setVesa("75x75mm");
         monitorTest.setDisplaySize("27" + "''");
 
-        monitorService.addMonitor("Asus", "Ihor", 242, 466, 622, "75x75mm", "27''", 1L);
-        verify(workPlaceRepository, times(2)).findById(1L);
+       monitorService.addMonitor(monitorTest);
         verify(monitorRepository, times(1)).save(any(Monitor.class));
     }
 
@@ -69,7 +65,6 @@ public class TestMonitorService {
         workPLace.setName("Working_Place_211");
         workPLace.setCity("Chernihiv");
 
-        given(workPlaceRepository.findById(1L)).willReturn(Optional.of(workPLace));
 
         Monitor monitorTest = new Monitor();
         monitorTest.setCreatedBy("Asus");
@@ -81,10 +76,8 @@ public class TestMonitorService {
         monitorTest.setVesa("75x75mm");
         monitorTest.setDisplaySize("27" + "''");
 
-        given(monitorRepository.findById(1L)).willReturn(Optional.of(monitorTest));
-        monitorService.updateMonitor(1L, "Asus", "Ihor", 275, 466, 622, "75x75mm", "27''", 1L);
-        verify(workPlaceRepository, times(2)).findById(1L);
-        verify(monitorRepository, times(1)).save(monitorTest);
+             monitorService.updateMonitor(monitorTest);
+             verify(monitorRepository, times(1)).save(monitorTest);
     }
 
     @Test

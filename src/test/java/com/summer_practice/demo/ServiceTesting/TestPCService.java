@@ -25,8 +25,7 @@ import static org.mockito.Mockito.verify;
 public class TestPCService {
     @InjectMocks
     PCService pcService;
-    @Mock
-    WorkPlaceRepository workPlaceRepository;
+
     @Mock
     PCRepository pcRepository;
 
@@ -41,8 +40,6 @@ public class TestPCService {
         workPLace.setName("Working_Place_211");
         workPLace.setCity("Chernihiv");
 
-        given(workPlaceRepository.findById(1L)).willReturn(Optional.of(workPLace));
-
         PC pcTest = new PC();
         pcTest.setCreatedAt(Timestamp.valueOf("2021-06-18 12:37:49.088739"));
         pcTest.setCreatedBy("Asus");
@@ -55,9 +52,8 @@ public class TestPCService {
         pcTest.setCpuCount(4);
         pcTest.setHddSize(400);
 
-        pcService.addPC("Asus", "Ihor", 242, 466, 622, 4, 400, 1L);
-        verify(workPlaceRepository, times(2)).findById(1L);
-        verify(pcRepository, times(1)).save(any(PC.class));
+        pcService.addPC(pcTest);
+           verify(pcRepository, times(1)).save(any(PC.class));
     }
 
     @Test
@@ -71,9 +67,7 @@ public class TestPCService {
         workPLace.setName("Working_Place_211");
         workPLace.setCity("Chernihiv");
 
-        given(workPlaceRepository.findById(1L)).willReturn(Optional.of(workPLace));
-
-        PC pcTest = new PC();
+           PC pcTest = new PC();
         pcTest.setCreatedAt(Timestamp.valueOf("2021-06-18 12:37:49.088739"));
         pcTest.setCreatedBy("Asus");
         pcTest.setUpdatedAt(Timestamp.valueOf("2021-06-18 12:37:49.088859"));
@@ -85,10 +79,9 @@ public class TestPCService {
         pcTest.setCpuCount(4);
         pcTest.setHddSize(400);
 
-        given(pcRepository.findById(1L)).willReturn(Optional.of(pcTest));
-        pcService.updatePC(1L, "Asus", "Ihor", 242, 466, 622, 4, 400, 1L);
-        verify(workPlaceRepository, times(2)).findById(1L);
-        verify(pcRepository, times(1)).save(pcTest);
+
+        pcService.updatePC(pcTest);
+         verify(pcRepository, times(1)).save(pcTest);
     }
 
     @Test

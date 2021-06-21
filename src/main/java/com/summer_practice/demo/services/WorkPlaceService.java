@@ -14,33 +14,21 @@ public class WorkPlaceService {
     @Autowired
     WorkPlaceRepository wpRepo;
 
-    public WorkPlace addWorkPlace(String createdBy, String updatedBy, String name, String city) {
-        WorkPlace workplace = new WorkPlace();
-        Timestamp data = Timestamp.valueOf(LocalDateTime.now());
-        workplace.setCreatedAt(data);
-        workplace.setCreatedBy(createdBy);
-        workplace.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-        workplace.setUpdatedBy(updatedBy);
-        workplace.setName(name);
-        workplace.setCity(city);
-        if (city.length() <= 3) {
+    public WorkPlace addWorkPlace(WorkPlace workPlace) {
+        workPlace.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        workPlace.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        if (workPlace.getCity().length() <= 3 || workPlace.getName().length() <= 3) {
             return null;
         }
-        return wpRepo.save(workplace);
+        return wpRepo.save(workPlace);
     }
 
-    public WorkPlace updateWorkPlace(Long id_Wp, String createdBy, String ubdatedBy, String name, String city) {
-        if (wpRepo.findById(id_Wp).isPresent()) {
-            WorkPlace workplace = wpRepo.findById(id_Wp).get();
-            //workplace.setCreatedAt(data); No one can change date of creation
-            workplace.setCreatedBy(createdBy);
-            workplace.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-            workplace.setUpdatedBy(ubdatedBy);
-            workplace.setName(name);
-            workplace.setCity(city);
-            return wpRepo.save(workplace);
+    public WorkPlace updateWorkPlace(WorkPlace workPlace) {
+        if (workPlace.getCity().length() <= 3 || workPlace.getName().length() <= 3) {
+            return null;
         }
-        return null;
+        workPlace.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        return wpRepo.save(workPlace);
     }
 
     public boolean deleteWorkPlace(Long id) {

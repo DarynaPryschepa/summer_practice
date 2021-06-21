@@ -1,7 +1,6 @@
 package com.summer_practice.demo.services;
 
 import com.summer_practice.demo.entities.PC;
-import com.summer_practice.demo.entities.WorkPlace;
 import com.summer_practice.demo.repositories.PCRepository;
 import com.summer_practice.demo.repositories.WorkPlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,45 +17,19 @@ public class PCService {
     @Autowired
     WorkPlaceRepository wpRepo;
 
-   public PC addPC(String createdBy, String updatedBy, int length, int height, int width, int hdd, int cpu, Long idWplace) {
-        PC pc = new PC();
-        Timestamp data = Timestamp.valueOf(LocalDateTime.now());
-        pc.setCreatedAt(data);
-        pc.setCreatedBy(createdBy);
+    public PC addPC(PC pc) {
+        pc.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         pc.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-        pc.setUpdatedBy(updatedBy);
-
-        pc.setLength(length);
-        pc.setHeight(height);
-        pc.setWidth(width);
-        pc.setHddSize(hdd);
-        pc.setCpuCount(cpu);
-        if (wpRepo.findById(idWplace).isPresent()) {
-            WorkPlace workPlace = wpRepo.findById(idWplace).get();
-            pc.setWplace(workPlace);
-            return  pcRepo.save(pc);
+        if (pc.getCpuCount() >= 2) {
+            return pcRepo.save(pc);
         }
-        return  null;
+        return null;
     }
 
-    public PC updatePC(Long id, String createdBy, String updatedBy, int length, int height, int width, int hdd, int cpu, Long idWplace) {
-        if (pcRepo.findById(id).isPresent()) {
-            PC pc = pcRepo.findById(id).get();
-            //pc.setCreatedAt(data); No one can change date of creation
-            pc.setCreatedBy(createdBy);
-            pc.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-            pc.setUpdatedBy(updatedBy);
-
-            pc.setLength(length);
-            pc.setHeight(height);
-            pc.setWidth(width);
-            pc.setHddSize(hdd);
-            pc.setCpuCount(cpu);
-            if (wpRepo.findById(idWplace).isPresent()) {
-                WorkPlace workPlace = wpRepo.findById(idWplace).get();
-                pc.setWplace(workPlace);
-                return pcRepo.save(pc);
-            }
+    public PC updatePC(PC pc) {
+        pc.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        if (pc.getCpuCount() >= 2) {
+            return pcRepo.save(pc);
         }
         return null;
     }
