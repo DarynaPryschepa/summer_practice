@@ -1,10 +1,9 @@
 package com.summer_practice.demo.controllers;
 
 import com.summer_practice.demo.entities.Monitor;
-import com.summer_practice.demo.entities.WorkPlace;
 import com.summer_practice.demo.services.MonitorService;
-import com.summer_practice.demo.services.WorkPlaceService;
-import org.springframework.http.CacheControl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,68 +11,46 @@ import java.util.List;
 
 @RestController
 public class MonitorController {
-    private MonitorService monitorService;
-    private WorkPlaceService workPlaceService;
+  private MonitorService monitorService;
 
-    MonitorController(MonitorService monitorService, WorkPlaceService workPlaceService) {
-        this.monitorService = monitorService;
-        this.workPlaceService = workPlaceService;
-    }
+  @Autowired
+  MonitorController(MonitorService monitorService) {
+    this.monitorService = monitorService;
+  }
 
-    @GetMapping("/monitors")
-    ResponseEntity<List<Monitor>> getAllMonitors() {
-        return ResponseEntity.ok().cacheControl(CacheControl.noCache()).body(monitorService.findAllMonitors());
-    }
+  @GetMapping("/monitors")
+  ResponseEntity<List<Monitor>> getAllMonitors() {
+    return new ResponseEntity<>(monitorService.findAllMonitors(), HttpStatus.OK);
+  }
 
-    @GetMapping("/monitorsbyvesa/{vesa}")
-    List<Monitor> getAllMonitorsbyVesa(@PathVariable String vesa) {
-        return monitorService.findByVesa(vesa);
-    }
+  @GetMapping("/monitorsbyvesa/{vesa}")
+  ResponseEntity<List<Monitor>> getAllMonitorsbyVesa(@PathVariable String vesa) {
+    return new ResponseEntity<>(monitorService.findByVesa(vesa), HttpStatus.OK);
+  }
 
-    @GetMapping("/monitorsbyh/{h1}/{h2}")
-    List<Monitor> getAllMonitorsbyHeigths(@PathVariable int h1, @PathVariable int h2) {
-        return monitorService.findbyHeightsBetween(h1, h2);
-    }
+  @GetMapping("/monitorsbyh/{h1}/{h2}")
+  ResponseEntity<List<Monitor>> getAllMonitorsbyHeigths(
+      @PathVariable int h1, @PathVariable int h2) {
+    return new ResponseEntity<>(monitorService.findbyHeightsBetween(h1, h2), HttpStatus.OK);
+  }
 
-    @GetMapping("/monitorsbyid/{id}")
-    Monitor getMonitorById(@PathVariable Long id) {
-        return monitorService.findMonitorById(id);
-    }
+  @GetMapping("/monitorbyid/{id}")
+  ResponseEntity<Monitor> getMonitorById(@PathVariable Long id) {
+    return new ResponseEntity<>(monitorService.findMonitorById(id), HttpStatus.OK);
+  }
 
-    @PostMapping("workplaces/{idWp}/monitors")
-    ResponseEntity<Monitor> addNewMonitor(@RequestBody Monitor newMonitor, @PathVariable Long idWp) {
-        WorkPlace wp = workPlaceService.findWorkingPlaceById(idWp);
-        if (wp != null) {
-            return ResponseEntity.ok().body(monitorService.addMonitor(newMonitor));
-        }
-        return null;
-    }
+  @PostMapping("/monitor")
+  ResponseEntity<Monitor> addNewMonitor(@RequestBody Monitor newMonitor) {
+    return new ResponseEntity<>(monitorService.addMonitor(newMonitor), HttpStatus.CREATED);
+  }
 
-    @PutMapping("workplaces/{idWp}/monitors/{idMon}")
-    Monitor updateMonitor(@RequestBody Monitor newMonitor, @PathVariable Long idWp, @PathVariable Long idMon) {
-        Monitor oldMonitor = monitorService.findMonitorById(idMon);
-        if (oldMonitor != null) {
-            oldMonitor.setCreatedBy(newMonitor.getCreatedBy());
-            oldMonitor.setUpdatedBy(newMonitor.getUpdatedBy());
-            oldMonitor.setLength(newMonitor.getLength());
-            oldMonitor.setHeight(newMonitor.getHeight());
-            oldMonitor.setWidth(newMonitor.getWidth());
-            oldMonitor.setVesa(newMonitor.getVesa());
-            oldMonitor.setDisplaySize(newMonitor.getDisplaySize());
-            WorkPlace wp = workPlaceService.findWorkingPlaceById(idWp);
-            if (wp != null) {
-                oldMonitor.setwPlace(newMonitor.getwPlace());
-                return monitorService.updateMonitor(oldMonitor);
-            } else {
-                return null;
-            }
-        } else {
-            return monitorService.addMonitor(newMonitor);
-        }
-    }
+  @PutMapping("/monitor")
+  ResponseEntity<Monitor> updateMonitor(@RequestBody Monitor newMonitor) {
+    return new ResponseEntity<>(monitorService.updateMonitor(newMonitor), HttpStatus.OK);
+  }
 
-    @DeleteMapping("/monitors/{id}")
-    boolean deleteMonitor(@PathVariable Long id) {
-        return monitorService.deleteMonitor(id);
-    }
+  @DeleteMapping("/monitor/{id}")
+  ResponseEntity<Boolean> deleteMonitor(@PathVariable Long id) {
+    return new ResponseEntity<>(monitorService.deleteMonitor(id), HttpStatus.OK);
+  }
 }

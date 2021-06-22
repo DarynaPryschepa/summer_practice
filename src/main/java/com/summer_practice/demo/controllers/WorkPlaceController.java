@@ -2,63 +2,55 @@ package com.summer_practice.demo.controllers;
 
 import com.summer_practice.demo.entities.WorkPlace;
 import com.summer_practice.demo.services.WorkPlaceService;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class WorkPlaceController {
-    private WorkPlaceService workPlaceService;
 
-    WorkPlaceController(WorkPlaceService workPlaceService) {
-        this.workPlaceService = workPlaceService;
-        this.workPlaceService = workPlaceService;
-    }
+  private WorkPlaceService workPlaceService;
 
-    @GetMapping("/workplaces")
-    List<WorkPlace> getAllWorkingPlaces() {
-        return workPlaceService.findAllWorkingPlaces();
-    }
+  @Autowired
+  WorkPlaceController(WorkPlaceService workPlaceService) {
+    this.workPlaceService = workPlaceService;
+  }
 
-    @GetMapping("/delete/workplacesbycity/{city}")
-    List<WorkPlace> getAllWorkingPlacesbyCity(@PathVariable String city) {
-        return workPlaceService.findAllWorkingPlacesbyCity(city);
-    }
+  @GetMapping("/workplaces")
+  ResponseEntity<List<WorkPlace>> getAllWorkingPlaces() {
+    return new ResponseEntity<>(workPlaceService.findAllWorkingPlaces(), HttpStatus.OK);
+  }
 
-    @GetMapping("/workplacesbyname/{name}")
-    List<WorkPlace> getAllWorkingPlacesbyName(@PathVariable String name) {
-        return workPlaceService.findAllWorkingPlacesbyName(name);
-    }
+  @GetMapping("/workplacesbycity/{city}")
+  ResponseEntity<List<WorkPlace>> getAllWorkingPlacesbyCity(@PathVariable String city) {
+    return new ResponseEntity<>(workPlaceService.findAllWorkingPlacesbyCity(city), HttpStatus.OK);
+  }
 
-    @GetMapping("/workplacesbyid/{id}")
-    WorkPlace getWorkingPlaceById(@PathVariable Long id) {
-        return workPlaceService.findWorkingPlaceById(id);
-    }
+  @GetMapping("/workplacesbyname/{name}")
+  ResponseEntity<List<WorkPlace>> getAllWorkingPlacesbyName(@PathVariable String name) {
+    return new ResponseEntity<>(workPlaceService.findAllWorkingPlacesbyName(name), HttpStatus.OK);
+  }
 
-    @PostMapping("/workplaces")
-    WorkPlace addNewWorkingPlaces(@Validated @RequestBody WorkPlace newWorkPlace) {
-        return workPlaceService.addWorkPlace(newWorkPlace);
-    }
+  @GetMapping("/workplacebyid/{id}")
+  ResponseEntity<WorkPlace> getWorkingPlaceById(@PathVariable Long id) {
+    return new ResponseEntity<>(workPlaceService.findWorkingPlaceById(id), HttpStatus.OK);
+  }
 
-    @PutMapping("/workplaces/{id}")
-    WorkPlace updateWorkingPlaces(@RequestBody WorkPlace newWorkPlace, @PathVariable Long id) {
-        WorkPlace oldWorkPlace = workPlaceService.findWorkingPlaceById(id);
-        if (oldWorkPlace != null) {
-            oldWorkPlace.setCreatedBy(newWorkPlace.getCreatedBy());
-            oldWorkPlace.setUpdatedBy(newWorkPlace.getUpdatedBy());
-            oldWorkPlace.setCity(newWorkPlace.getCity());
-            oldWorkPlace.setName(newWorkPlace.getName());
+  @PostMapping("/workplace")
+  ResponseEntity<WorkPlace> addNewWorkingPlaces(@RequestBody WorkPlace newWorkPlace) {
+    return new ResponseEntity<>(workPlaceService.addWorkPlace(newWorkPlace), HttpStatus.CREATED);
+  }
 
-            return workPlaceService.updateWorkPlace(oldWorkPlace);
-        } else {
-            return workPlaceService.addWorkPlace(newWorkPlace);
-        }
-    }
+  @PutMapping("/workplace")
+  ResponseEntity<WorkPlace> updateWorkingPlaces(@RequestBody WorkPlace newWorkPlace) {
+    return new ResponseEntity<>(workPlaceService.updateWorkPlace(newWorkPlace), HttpStatus.OK);
+  }
 
-    @DeleteMapping("/workplaces/{id}")
-    boolean deleteWorkingPlace(@PathVariable Long id) {
-        return workPlaceService.deleteWorkPlace(id);
-    }
-
+  @DeleteMapping("/workplace/{id}")
+  ResponseEntity<Boolean> deleteWorkingPlace(@PathVariable Long id) {
+    return new ResponseEntity<>(workPlaceService.deleteWorkPlace(id), HttpStatus.OK);
+  }
 }
