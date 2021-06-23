@@ -1,5 +1,7 @@
 package com.summer_practice.demo.RepositoryTesting;
 
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
+import com.github.database.rider.spring.api.DBRider;
 import com.summer_practice.demo.entities.Monitor;
 import com.summer_practice.demo.entities.WorkPlace;
 import com.summer_practice.demo.repositories.MonitorRepository;
@@ -11,65 +13,65 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertTrue;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@DBRider
 public class MonitorRepositoryTesting {
+
     @Autowired
     private MonitorRepository monitorRepository;
     @Autowired
     private WorkPlaceRepository wplaceRepository;
 
     @Test
-    public void addMonitor() {
+    @ExpectedDataSet(value = {"datasets/monitorExpectedForAdding.yml"}, ignoreCols = {"mon_id"})
+    public void addMonitorTesting() {
         Monitor monitorTest = new Monitor();
-        Timestamp data = Timestamp.valueOf(LocalDateTime.now());
-        monitorTest.setCreatedAt(data);
+        monitorTest.setCreatedAt(Timestamp.valueOf("2021-06-18 12:37:49.088739"));
         monitorTest.setCreatedBy("Asus");
-        monitorTest.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        monitorTest.setUpdatedAt(Timestamp.valueOf("2021-06-18 12:37:49.088859"));
         monitorTest.setUpdatedBy("Ihor");
 
         monitorTest.setLength(242);
         monitorTest.setHeight(466);
         monitorTest.setWidth(622);
         monitorTest.setVesa("75x75mm");
-        monitorTest.setDisplay_size("27" + '"');
-        WorkPlace w = wplaceRepository.findById(Long.valueOf("1")).get();
+        monitorTest.setDisplaySize("27" + "''");
+        assertTrue(wplaceRepository.findById(1L).isPresent());
+        WorkPlace w = wplaceRepository.findById(1L).get();
         monitorTest.setwPlace(w);
         monitorRepository.save(monitorTest);
-        assertEquals("Asus", monitorRepository.findById(Long.valueOf("6")).get().getCreatedBy());
-        assertTrue(monitorRepository.findById(Long.valueOf("6")).isPresent());
     }
 
     @Test
-    public void delMonitor() {
-        monitorRepository.deleteById(Long.valueOf("6"));
-        assertFalse(monitorRepository.findById(Long.valueOf("6")).isPresent());
-    }
-
-    @Test
-    public void updateMonitor() {
-
-        Monitor monitorTest = monitorRepository.findById(Long.valueOf("1")).get();
-        monitorTest.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+    @ExpectedDataSet(value = {"datasets/monitorExpectedForUpdate.yml"})
+    public void updateMonitorTesting() {
+        assertTrue(monitorRepository.findById(1L).isPresent());
+        Monitor monitorTest = monitorRepository.findById(1L).get();
         monitorTest.setUpdatedBy("admin");
         monitorRepository.save(monitorTest);
-
-        assertEquals("admin", monitorRepository.findById(Long.valueOf("1")).get().getUpdatedBy());
     }
 
     @Test
-    public void findheightTesting() {
-        assertEquals(1, monitorRepository.findByHeightBetween(700, 800).size());
+    @ExpectedDataSet(value = {"datasets/monitorDefaultPattern.yml"})
+    public void delMonitorTesting() {
+        monitorRepository.deleteById(17L);
     }
 
     @Test
+    @ExpectedDataSet(value = {"datasets/monitorDefaultPattern.yml"})
+    public void findHeightTesting() {
+        monitorRepository.findByHeightBetween(700, 800);
+    }
+
+    @Test
+    @ExpectedDataSet(value = {"datasets/monitorDefaultPattern.yml"})
     public void findVesaTesting() {
-        assertEquals(1, monitorRepository.findByVesaContains("800").size());
+        monitorRepository.findByVesaContains("800");
     }
 
 }

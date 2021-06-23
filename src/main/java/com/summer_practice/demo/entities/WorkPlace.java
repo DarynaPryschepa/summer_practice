@@ -15,7 +15,6 @@ public class WorkPlace {
     private Timestamp createdAt;
     @Column(name = "created_by")
     private String createdBy;
-
     @Column(name = "updated_at")
     private Timestamp updatedAt;
     @Column(name = "updated_by")
@@ -24,10 +23,10 @@ public class WorkPlace {
     private String name;
     @Column(name = "city")
     private String city;
-
     @OneToMany(mappedBy = "wPlace", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Monitor> monitors;
     @OneToMany(mappedBy = "wPlacePc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
     private Set<PC> pcs;
 
     public Long getId() {

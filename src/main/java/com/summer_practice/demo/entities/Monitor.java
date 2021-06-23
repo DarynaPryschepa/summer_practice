@@ -4,10 +4,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-
 @Table(name = "monitor")
 public class Monitor {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "mon_id")
@@ -33,7 +31,6 @@ public class Monitor {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = WorkPlace.class)
     @JoinColumn(name = "w_place_id", nullable = false)
     private WorkPlace wPlace;
-
 
     public Long getMonId() {
         return monId;
@@ -103,11 +100,11 @@ public class Monitor {
         this.vesa = vesa;
     }
 
-    public String getDisplay_size() {
+    public String getDisplaySize() {
         return displaySize;
     }
 
-    public void setDisplay_size(String display_size) {
+    public void setDisplaySize(String display_size) {
         this.displaySize = display_size;
     }
 

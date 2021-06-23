@@ -33,9 +33,7 @@ public class PC {
     @JoinColumn(name = "w_place_id", nullable = false)
     private WorkPlace wPlacePc;
 
-    public Long getPcId() {
-        return pcId;
-    }
+    public Long getPcId() { return pcId; }
 
     public Timestamp getCreatedAt() {
         return createdAt;
