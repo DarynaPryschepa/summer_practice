@@ -15,7 +15,7 @@ public class PCController {
   private PCService pcService;
 
   @Autowired
-  PCController(PCService pcService, WorkPlaceService workPlaceService) {
+  PCController(PCService pcService) {
     this.pcService = pcService;
   }
 

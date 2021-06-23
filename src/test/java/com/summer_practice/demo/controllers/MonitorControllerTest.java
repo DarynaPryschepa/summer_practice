@@ -41,7 +41,7 @@ public class MonitorControllerTest {
   @MockBean private MonitorService monitorService;
   @MockBean private WorkPlaceService workPlaceService;
 
- private ObjectMapper objectMapper = new ObjectMapper();
+  private ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
   public void shouldAddMonitor() throws Exception {

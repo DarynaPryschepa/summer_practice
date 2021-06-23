@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.summer_practice.demo.entities.PC;
 import com.summer_practice.demo.entities.WorkPlace;
 import com.summer_practice.demo.services.PCService;
+import com.summer_practice.demo.services.WorkPlaceService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +39,8 @@ public class PCControllerTest {
   @Autowired private MockMvc mockMvc;
 
   @MockBean private PCService pcService;
- private  ObjectMapper objectMapper = new ObjectMapper();
+  @MockBean private WorkPlaceService workPlaceService;
+  private ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
   public void shouldAddPC() throws Exception {
@@ -63,10 +65,12 @@ public class PCControllerTest {
     pcTest.setWidth(622);
     pcTest.setCpuCount(4);
     pcTest.setHddSize(400);
+    pcTest.setwPlacePc(workPLace);
 
     String pcToJson = objectMapper.writeValueAsString(pcTest);
 
     given(pcService.addPC(any(PC.class))).willReturn(pcTest);
+    given(workPlaceService.findWorkingPlaceById(1L)).willReturn(workPLace);
     MvcResult mvcResult =
         this.mockMvc
             .perform(
@@ -105,7 +109,7 @@ public class PCControllerTest {
     pcTest.setWidth(622);
     pcTest.setCpuCount(6);
     pcTest.setHddSize(400);
-
+    pcTest.setwPlacePc(workPlace);
     String pcToJson = objectMapper.writeValueAsString(pcTest);
 
     given(pcService.updatePC(any(PC.class))).willReturn(pcTest);
