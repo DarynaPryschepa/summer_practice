@@ -18,7 +18,8 @@ import java.util.Objects;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -74,9 +75,9 @@ public class PcIT {
     ResponseEntity<PC> responseEntity =
         restTemplate.postForEntity("http://localhost:8080/pc", requestBody, PC.class);
 
-      assertSame(responseEntity.getStatusCode(), HttpStatus.CREATED);
+    assertSame(responseEntity.getStatusCode(), HttpStatus.CREATED);
     assertThat(Objects.requireNonNull(responseEntity.getBody()).getPcId()).isNotNull();
-      assertEquals(789, responseEntity.getBody().getHeight());
+    assertEquals(789, responseEntity.getBody().getHeight());
   }
 
   @Test
@@ -113,7 +114,7 @@ public class PcIT {
     PC responseEntity =
         restTemplate.getForObject("http://localhost:8080/pcbyid/" + pcTest.getPcId(), PC.class);
 
-      assertEquals(789, responseEntity.getHeight());
+    assertEquals(789, responseEntity.getHeight());
   }
 
   @Test

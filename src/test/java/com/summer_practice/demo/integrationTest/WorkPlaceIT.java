@@ -17,7 +17,8 @@ import java.util.Objects;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -59,9 +60,9 @@ public class WorkPlaceIT {
     ResponseEntity<WorkPlace> responseEntity =
         restTemplate.postForEntity("http://localhost:8080/workplace", requestBody, WorkPlace.class);
 
-      assertSame(responseEntity.getStatusCode(), HttpStatus.CREATED);
+    assertSame(responseEntity.getStatusCode(), HttpStatus.CREATED);
     assertThat(Objects.requireNonNull(responseEntity.getBody()).getWplaceId()).isNotNull();
-      assertEquals("Working_Place_311", responseEntity.getBody().getName());
+    assertEquals("Working_Place_311", responseEntity.getBody().getName());
   }
 
   @Test
@@ -85,8 +86,8 @@ public class WorkPlaceIT {
         restTemplate.getForObject(
             "http://localhost:8080/workplacebyid/" + workPLace.getWplaceId(), WorkPlace.class);
 
-      assert responseEntity != null;
-      assertEquals("Jasper", responseEntity.getName());
+    assert responseEntity != null;
+    assertEquals("Jasper", responseEntity.getName());
   }
 
   @Test
