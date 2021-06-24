@@ -10,11 +10,11 @@ import java.util.List;
 
 @Repository
 public interface MonitorRepository extends JpaRepository<Monitor, Long> {
-    //Finding monitors with height in the range of h1 and h2 params
-    @Query("SELECT m FROM Monitor m WHERE m.height >= ?1 AND m.height <= ?2")
-    List<Monitor> findByHeightBetween(int h1, int h2);
+  // Finding monitors with height in the range of h1 and h2 params
+  @Query("SELECT m FROM Monitor m WHERE m.height >= ?1 AND m.height <= ?2")
+  List<Monitor> findByHeightBetween(int h1, int h2);
 
-    //Finding monitors vesa  of wich ends on paramOfVesa param
-    @Query("SELECT m FROM Monitor m WHERE m.vesa like %:vesa ")
-    List<Monitor> findByVesaContains(@Param("vesa") String paramOfVesa);
+  // Finding monitors vesa  of wich ends on paramOfVesa param
+  @Query("SELECT m FROM Monitor m WHERE m.vesa like %:vesa ")
+  List<Monitor> findByVesaContains(@Param("vesa") String paramOfVesa);
 }

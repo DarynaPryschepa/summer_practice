@@ -1,5 +1,7 @@
 package com.summer_practice.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
@@ -7,93 +9,106 @@ import java.util.Set;
 @Entity
 @Table(name = "working_place")
 public class WorkPlace {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "wp_id")
-    private Long wplaceId;
-    @Column(name = "created_at")
-    private Timestamp createdAt;
-    @Column(name = "created_by")
-    private String createdBy;
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
-    @Column(name = "updated_by")
-    private String updatedBy;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "city")
-    private String city;
-    @OneToMany(mappedBy = "wPlace", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Monitor> monitors;
-    @OneToMany(mappedBy = "wPlacePc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "wp_id")
+  private Long wplaceId;
 
-    private Set<PC> pcs;
+  @Column(name = "created_at")
+  private Timestamp createdAt;
 
-    public Long getId() {
-        return wplaceId;
-    }
+  @Column(name = "created_by")
+  private String createdBy;
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
+  @Column(name = "updated_at")
+  private Timestamp updatedAt;
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
+  @Column(name = "updated_by")
+  private String updatedBy;
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
+  @Column(name = "name")
+  private String name;
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
+  @Column(name = "city")
+  private String city;
 
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
+  @OneToMany(mappedBy = "wPlace", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnore
+  private Set<Monitor> monitors;
 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+  @OneToMany(mappedBy = "wPlacePc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnore
+  private Set<PC> pcs;
 
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
+  public Long getWplaceId() {
+    return wplaceId;
+  }
 
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+  public void setWplaceId(Long id) {
+    this.wplaceId = id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public Timestamp getCreatedAt() {
+    return createdAt;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setCreatedAt(Timestamp createdAt) {
+    this.createdAt = createdAt;
+  }
 
-    public String getCity() {
-        return city;
-    }
+  public String getCreatedBy() {
+    return createdBy;
+  }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public void setCreatedBy(String createdBy) {
+    this.createdBy = createdBy;
+  }
 
-    public Set<Monitor> getMonitors() {
-        return monitors;
-    }
+  public Timestamp getUpdatedAt() {
+    return updatedAt;
+  }
 
-    public void setMonitors(Set<Monitor> monitors) {
-        this.monitors = monitors;
-    }
+  public void setUpdatedAt(Timestamp updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 
-    public Set<PC> getPcs() {
-        return pcs;
-    }
+  public String getUpdatedBy() {
+    return updatedBy;
+  }
 
-    public void setPcs(Set<PC> pcs) {
-        this.pcs = pcs;
-    }
+  public void setUpdatedBy(String updatedBy) {
+    this.updatedBy = updatedBy;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getCity() {
+    return city;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  }
+
+  public Set<Monitor> getMonitors() {
+    return monitors;
+  }
+
+  public void setMonitors(Set<Monitor> monitors) {
+    this.monitors = monitors;
+  }
+
+  public Set<PC> getPcs() {
+    return pcs;
+  }
+
+  public void setPcs(Set<PC> pcs) {
+    this.pcs = pcs;
+  }
 }

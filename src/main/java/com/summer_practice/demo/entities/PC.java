@@ -6,112 +6,127 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "pc")
 public class PC {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "pc_id")
-    private Long pcId;
-    @Column(name = "created_at")
-    private Timestamp createdAt;
-    @Column(name = "created_by")
-    private String createdBy;
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
-    @Column(name = "updated_by")
-    private String updatedBy;
-    @Column(name = "length")
-    private int length;
-    @Column(name = "height")
-    private int height;
-    @Column(name = "width")
-    private int width;
-    @Column(name = "hddsize")
-    private int hddSize;
-    @Column(name = "cpucount")
-    private int cpuCount;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "pc_id")
+  private Long pcId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "w_place_id", nullable = false)
-    private WorkPlace wPlacePc;
+  @Column(name = "created_at")
+  private Timestamp createdAt;
 
-    public Long getPcId() { return pcId; }
+  @Column(name = "created_by")
+  private String createdBy;
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
+  @Column(name = "updated_at")
+  private Timestamp updatedAt;
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
+  @Column(name = "updated_by")
+  private String updatedBy;
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
+  @Column(name = "length")
+  private int length;
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
+  @Column(name = "height")
+  private int height;
 
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
+  @Column(name = "width")
+  private int width;
 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+  @Column(name = "hddsize")
+  private int hddSize;
 
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
+  @Column(name = "cpucount")
+  private int cpuCount;
 
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "w_place_id", nullable = false)
+  private WorkPlace wPlacePc;
 
-    public int getLength() {
-        return length;
-    }
+  public Long getPcId() {
+    return pcId;
+  }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
+  public void setPcId(Long id) {
+    this.pcId = id;
+  }
 
-    public int getHeight() {
-        return height;
-    }
+  public Timestamp getCreatedAt() {
+    return createdAt;
+  }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
+  public void setCreatedAt(Timestamp createdAt) {
+    this.createdAt = createdAt;
+  }
 
-    public int getWidth() {
-        return width;
-    }
+  public String getCreatedBy() {
+    return createdBy;
+  }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
+  public void setCreatedBy(String createdBy) {
+    this.createdBy = createdBy;
+  }
 
-    public int getHddSize() {
-        return hddSize;
-    }
+  public Timestamp getUpdatedAt() {
+    return updatedAt;
+  }
 
-    public void setHddSize(int hddSize) {
-        this.hddSize = hddSize;
-    }
+  public void setUpdatedAt(Timestamp updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 
-    public int getCpuCount() {
-        return cpuCount;
-    }
+  public String getUpdatedBy() {
+    return updatedBy;
+  }
 
-    public void setCpuCount(int cpuCount) {
-        this.cpuCount = cpuCount;
-    }
+  public void setUpdatedBy(String updatedBy) {
+    this.updatedBy = updatedBy;
+  }
 
-    public WorkPlace getWplace() {
-        return wPlacePc;
-    }
+  public int getLength() {
+    return length;
+  }
 
-    public void setWplace(WorkPlace w_place) {
-        this.wPlacePc = w_place;
-    }
+  public void setLength(int length) {
+    this.length = length;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public void setHeight(int height) {
+    this.height = height;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public void setWidth(int width) {
+    this.width = width;
+  }
+
+  public int getHddSize() {
+    return hddSize;
+  }
+
+  public void setHddSize(int hddSize) {
+    this.hddSize = hddSize;
+  }
+
+  public int getCpuCount() {
+    return cpuCount;
+  }
+
+  public void setCpuCount(int cpuCount) {
+    this.cpuCount = cpuCount;
+  }
+
+  public WorkPlace getwPlacePc() {
+    return wPlacePc;
+  }
+
+  public void setwPlacePc(WorkPlace w_place) {
+    this.wPlacePc = w_place;
+  }
 }
